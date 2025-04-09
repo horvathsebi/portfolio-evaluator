@@ -103,7 +103,7 @@ def expected_return_on_portfolio(current_portfolio,all_returns_df,total_portfoli
     all_returns_list = []
     weighted_returns = []
 
-    for ticker, share in enumerate(current_portfolio):
+    for (i, (ticker, share)) in enumerate(current_portfolio):
         avg_return = all_returns_df[ticker].mean()
         daily_ER = np.exp(avg_return) - 1
         yearly_ER = ((1 + daily_ER) ** (float(t_project_returns) * 252)) - 1
