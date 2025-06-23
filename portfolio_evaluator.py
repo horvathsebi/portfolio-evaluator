@@ -5,6 +5,9 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt 
 from fredapi import Fred
 
+from curl_cffi import requests
+session = requests.Session(impersonate="chrome")
+
 # main functions and calculations
 
 
@@ -38,7 +41,7 @@ def all_returns(current_portfolio,t_trailing_back=None):
     minden_stock = [] 
 
     for ticker, share in current_portfolio:
-        stock = yf.Ticker(ticker.strip())
+        stock = yf.Ticker(ticker.strip(), session=session)
         
         # getting the data from timeframe
         one_year_ago = (datetime.now() - timedelta(days=float(hany_ev) * 365)).strftime("%Y-%m-%d")
