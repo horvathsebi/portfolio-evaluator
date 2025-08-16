@@ -200,8 +200,8 @@ def max_sharpe_alloc(random_portf_df,initial_input_capital):
     max_sharpe_index = random_portf_df['sharpe'].idxmax()
     max_sharpe_portfolio = random_portf_df.loc[max_sharpe_index]
     w = max_sharpe_portfolio[3:]
-    money_alloc = {ticker: f"{(weight * initial_input_capital):.2f} USD" for ticker, weight in w.items()}
-    max_sharpe_money_alloc = pd.DataFrame(money_alloc.items(), columns=['ticker', 'allocated dough'])
+    money_alloc = {ticker: f"{(weight * initial_input_capital):.2f} USD or {(weight * 100):.2f}%" for ticker, weight in w.items()}
+    max_sharpe_money_alloc = pd.DataFrame(money_alloc.items(), columns=['ticker', 'allocated dough for max shapre'])
 
     return max_sharpe_money_alloc
 
@@ -211,8 +211,8 @@ def min_risk_alloc(random_portf_df,initial_input_capital):
     min_risk_index = random_portf_df['sharpe'].idxmin()
     min_risk_portfolio = random_portf_df.loc[min_risk_index]
     w = min_risk_portfolio[3:]
-    money_alloc = {ticker: f"{(weight * initial_input_capital):.2f} USD" for ticker, weight in w.items()}
-    min_risk_money_alloc = pd.DataFrame(money_alloc.items(), columns=['ticker', 'allocated dough'])
+    money_alloc = {ticker: f"{(weight * initial_input_capital):.2f} USD or {(weight * 100):.2f}%" for ticker, weight in w.items()}
+    min_risk_money_alloc = pd.DataFrame(money_alloc.items(), columns=['ticker', 'allocated dough for min risk'])
 
     return min_risk_money_alloc
 
