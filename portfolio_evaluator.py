@@ -7,6 +7,7 @@ from fredapi import Fred
 
 from curl_cffi import requests
 session = requests.Session(impersonate="chrome")
+import fredapikey
 
 # main functions and calculations
 
@@ -23,7 +24,7 @@ def portfolio(inputs):
 
 # getting the risk free rate from 10 year us gov bonds
 def risk_free_rate():
-    fred = Fred(api_key='your api key here')
+    fred = Fred(api_key=fredapikey.FREDAPI)
     us_10yr_treasury = fred.get_series('DGS10')
     latest_rate = us_10yr_treasury.iloc[-1]
     risk_free_rate = latest_rate/100
@@ -150,7 +151,7 @@ def highest_lowest(daily_p_returns):
     return max_return, min_return
 
 # go over 20000 random combinations of weights
-def markovitz(risk_free_rate,returns_df):
+def mpt(risk_free_rate,returns_df):
     num_random_portf = 20000
 
     # calculate the stock returns for each
@@ -182,13 +183,13 @@ def markovitz(risk_free_rate,returns_df):
 
     return random_portf_df
 
-# function to get the highest sharpe rate on markov
+# function to get the highest sharpe rate 
 def max_sharpe_portfolio(random_portf_df):
     max_sharpe_index = random_portf_df['sharpe'].idxmax()
     max_sharpe_portfolio = random_portf_df.loc[max_sharpe_index]
     return max_sharpe_portfolio
 
-# function to get the lowest risk on markov
+# function to get the lowest risk 
 def min_risk_porfolio(random_portf_df):
     min_risk_index = random_portf_df['std'].idxmin()
     min_risk_portfolio = random_portf_df.loc[min_risk_index]
